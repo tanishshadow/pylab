@@ -31,8 +31,8 @@ pylab/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-cd YOUR-REPOSITORY/pylab
+git clone [https://github.com/tanishshadow/pylab.git](https://github.com/tanishshadow/pylab)
+cd pylab
 ```
 
 2. Create a virtual environment:
@@ -118,6 +118,4 @@ If your default branch is named `master`, use:
 git push origin master
 ```
 
-## License
 
-Add a license file if you want others to reuse or modify this project.
