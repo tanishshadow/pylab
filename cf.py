@@ -87,10 +87,9 @@ def topic_strengths(tags):
 
 def weak_topics(strengths):
     weak = []
-    if strengths.get("graphs", 0) < 5:
-        weak.append("Graphs")
-    if strengths.get("dp", 0) < 5:
-        weak.append("Dynamic Programming")
+    for topic, count in strengths.items():
+        if count < 5:
+            weak.append(topic.title())
     return weak
 
 

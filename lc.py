@@ -61,6 +61,27 @@ def draw_difficulty_graph(profile):
     return fig
 
 
+def difficulty_percentages(profile):
+    if profile["total"] == 0:
+        return {"easy": 0, "medium": 0, "hard": 0}
+
+    return {
+        "easy": round((profile["easy"] / profile["total"]) * 100),
+        "medium": round((profile["medium"] / profile["total"]) * 100),
+        "hard": round((profile["hard"] / profile["total"]) * 100),
+    }
+
+
+def practice_focus(profile):
+    if profile["total"] == 0:
+        return "Start with Easy problems to build momentum."
+    if profile["medium"] < profile["easy"] * 0.4:
+        return "Try solving more Medium problems next."
+    if profile["total"] >= 25 and profile["hard"] == 0:
+        return "You can start trying a few Hard problems."
+    return "Your difficulty mix looks balanced. Keep practicing consistently."
+
+
 st.set_page_config(page_title="LeetCode Analytics", layout="centered")
 st.title("LeetCode Analytics")
 
@@ -89,6 +110,18 @@ if analyze:
 
         st.header("Difficulty Distribution")
         st.pyplot(draw_difficulty_graph(profile))
+
+        st.header("Solved Percentage")
+        percentages = difficulty_percentages(profile)
+        st.write(f"Easy: {percentages['easy']}%")
+        st.progress(percentages["easy"] / 100)
+        st.write(f"Medium: {percentages['medium']}%")
+        st.progress(percentages["medium"] / 100)
+        st.write(f"Hard: {percentages['hard']}%")
+        st.progress(percentages["hard"] / 100)
+
+        st.header("Practice Focus")
+        st.info(practice_focus(profile))
 
     except RuntimeError as exc:
         st.error(str(exc))
